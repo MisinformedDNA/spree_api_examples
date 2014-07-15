@@ -233,7 +233,7 @@ module Examples
 
           File.write("payment2.json", JSON.pretty_generate(order))
           if (payments.last["source"]["last_digits"] == nil)
-            client.failed "'last_digits' is null"
+            client.failed "'last_digits' is nil"
           end
         else
           client.failed "Payment details were not accepted for the order."
