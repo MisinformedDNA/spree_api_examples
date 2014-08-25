@@ -5,7 +5,6 @@ module Examples
   def self.run(example)
     clients = []
     clients << Clients::Base.new
-    clients << Clients::JSON.new
 
     clients.each do |client|
       message = "Running #{example.name} with #{client.class.name}"
