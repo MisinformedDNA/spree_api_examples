@@ -106,6 +106,27 @@ module Examples
           {
             order: {
               bill_address_attributes: address,
+              ship_address_attributes: address
+            }
+          }
+        )
+
+        if response.status == 200
+          client.succeeded "Address details added."
+          order = JSON.parse(response.body)
+          if order['state'] == 'delivery'
+            client.succeeded "Order automatically transitioned to 'delivery'."
+          else
+            client.failed "Order failed to automatically transition to 'delivery'."
+          end
+        else
+          client.failed "Could not add address details to order."
+        end
+
+        response = client.put("/api/checkouts/#{order['number']}",
+          {
+            order: {
+              bill_address_attributes: address,
               ship_address_attributes: nil
             }
           }
